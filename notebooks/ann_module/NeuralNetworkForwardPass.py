@@ -23,14 +23,14 @@ class NeuralNetworkLayer:
 
     # For now we can initialize weights randomly to start with
     # we will deep dive later on how to set initial weights while covering the model training
-    self.weights = np.random.randint(-1, 2, size=(self.output_dimensions, self.input_dimensions))
+    self.weights = np.random.randint(-1, 2, size=(self.input_dimensions, self.output_dimensions))
     if is_bias:
       self.bias = np.random.randint(0, 2, size=(self.output_dimensions, 1))
     else:
       self.bias = np.zeros((self.output_dimensions, 1))
 
 
-  def predict(self, input:np.ndarray) -> np.ndarray:
+  def forward(self, input:np.ndarray) -> np.ndarray:
     """
     Calculate the output of the layer for the given input.
 
@@ -40,8 +40,8 @@ class NeuralNetworkLayer:
     Returns:
       np.ndarray: The output of the layer.
     """
-    return self.activation_function(np.matmul(self.weights, input) + self.bias)
-
+    return self.activation_function(np.matmul(self.weights.T, input) + self.bias)
+  
 class NeuralNetworkForwardPass:
     def __init__(self, input_dimensions: int, output_dimensions: int, 
                  output_layer_actfn: callable,
