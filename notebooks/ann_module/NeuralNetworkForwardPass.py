@@ -80,7 +80,7 @@ class NeuralNetworkForwardPass:
             raise ValueError("Number of neurons in hidden layer should be greater than 0")
         self.layers.append(NeuralNetworkLayer(input_dimensions, output_dimensions, activation_function, is_bias=True))
 
-    def predict(self, input: np.ndarray) -> np.ndarray:
+    def forward(self, input: np.ndarray) -> np.ndarray:
         """
         Calculate the output of the neural network for the given input.
 
@@ -91,5 +91,5 @@ class NeuralNetworkForwardPass:
             np.ndarray: The output of the neural network.
         """
         for layer in self.layers:
-            input = layer.predict(input)
+            input = layer.forward(input)
         return input
